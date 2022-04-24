@@ -1,0 +1,61 @@
+#include <iostream>
+using namespace std;
+
+struct node{
+  int value;
+  node* next;
+};
+
+node* head = NULL;
+node* head2 = NULL;
+node* head3 = NULL;
+node* head4 = NULL;
+
+bool isEmpty(){
+    if(head == NULL){
+        return true;
+    }
+    return false;
+}
+
+void insert_value(int value, node* &current_node){
+    if(current_node->next == head){
+        node* new_node = new node;
+        new_node->value = value;
+        new_node->next = NULL; // head
+        current_node->next = new_node;
+        new_node->next = head;
+    }
+    
+    else{
+        current_node = current_node->next;
+    }
+    insert_value(value, current_node->next);
+}
+
+void print_value(){
+    cout << "Printing Values\n";
+    node* print_node = head;
+    int i = 0;
+    while(print_node->next != NULL){
+        cout << print_node->value << endl;
+        print_node = print_node->next;
+        i++;
+        if(i == 5){
+            return;
+        }
+    }
+    cout << print_node->value;
+}
+
+int main(){
+    head->value = 1;
+    head2->value = 2;
+    head3->value = 3;
+    head->next = head2;
+    head2->next = head3;
+    head3->next = head;
+    insert_value(5, head4);
+    print_value();
+    return 0;
+}
